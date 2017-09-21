@@ -19,8 +19,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(session({
     secret: config.sessionSecret,
-    saveUninitialized: false,
-    resave: false
+    saveUninitialized: true,
+    resave: true
 }))
 
 const userCtrl = require('./controllers/userCtrl');

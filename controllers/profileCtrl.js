@@ -22,18 +22,14 @@ var profiles = [
   ];
 
   module.exports = {
-      getFriendProfiles: function(req, res, next){
-          var friends = [];
-          req.session.currentUser.friends.forEach(function(value){
-              for(var i in profiles){
-                  if(profiles[i].name === value){
-                      friends.push(profiles[i]);
-                  }
-              }
-          });
-          res.json({
-            currentUser: req.session.currentUser,
-            friends: friends              
-          });
-      }
+    getFriendProfiles: (req, res, next) => {
+      let friends;
+      if (req.query.name) {
+       friends.filter(profiles, profile => profile.name.includes(req.query.name))
+      } else if (req.query.status) {
+          friends.filter(profiles, profile => profile.status.includes(req.query.status))
+      } else friends = profiles;
+      
+      return res.send({message: friends})
+  }
   };
